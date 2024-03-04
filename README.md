@@ -3,8 +3,8 @@ This is a tool to scrape the data from the SomToday API and save them to a XML f
 ## Installing
 Clone this repository -- `git clone https://github.com/m-caeliusrufus/Somtoday-SSO-tool` or just download `somtoday_api.py`
 ## Setting up
-Get the UUID for your school from `servers.somtoday.nl/organisaties.json`
-Install the following Python libraries:
+- Get the UUID for your school from `servers.somtoday.nl/organisaties.json`
+- Install the following Python libraries:
 ### Selenium
 Run `pip install selenium`
 ### Requests
