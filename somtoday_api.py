@@ -21,7 +21,7 @@ def get_organisation(uuid):
         raise ValueError('No school found')
 
 school = get_organisation(SCHOOL_UUID)
-base_url = "https://somtoday.nl/oauth2/authorize?redirect_uri=somtodayleerling://oauth/callback&client_id=D50E0C06-32D1-4B41-A137-A9A850C892C2&response_type=code&prompt=login&scope=openid&code_challenge=tCqjy6FPb1kdOfvSa43D8a7j8FLDmKFCAz8EdRGdtQA&code_challenge_method=S256&tenant_uuid={TENANT_UUID}&oidc_iss={OIDC_ISS}".format(TENANT_UUID=school['uuid'], OIDC_ISS=school['oidcurls'][0]['url'])
+base_url = "https://somtoday.nl/oauth2/authorize?redirect_uri=somtodayleerling://oauth/callback&client_id=D50E0C06-32D1-4B41-A137-A9A850C892C2&response_type=code&prompt=login&scope=openid&code_challenge=tCqjy6FPb1kdOfvSa43D8a7j8FLDmKFCAz8EdRGdtQA&code_challenge_method=S256&tenant_uuid={TENANT_UUID}".format(TENANT_UUID=school['uuid'])
 
 print(f"Logging into {school['naam']} with ID: {school['uuid']}")
 
