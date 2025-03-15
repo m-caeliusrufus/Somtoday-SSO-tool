@@ -7,12 +7,12 @@ import requests
 import xmltodict
 
 ## Store some constants
-client_id = 'D50E0C06-32D1-4B41-A137-A9A850C892C2'
+client_id = 'somtoday-leerling-native'
 SCHOOL_UUID = input("School UUID ")
 
 ## Token flow
 def get_organisation(uuid):
-    response = requests.get('https://servers.somtoday.nl/organisaties.json')
+    response = requests.get('https://raw.githubusercontent.com/NONtoday/organisaties.json/refs/heads/main/organisaties-formatted.json')
     data = response.json()
     school = next((instelling for instelling in data[0]['instellingen'] if instelling['uuid'] == uuid), None)
     if school:
@@ -21,8 +21,7 @@ def get_organisation(uuid):
         raise ValueError('No school found')
 
 school = get_organisation(SCHOOL_UUID)
-base_url = "https://somtoday.nl/oauth2/authorize?redirect_uri=somtodayleerling://oauth/callback&client_id=D50E0C06-32D1-4B41-A137-A9A850C892C2&response_type=code&prompt=login&scope=openid&code_challenge=tCqjy6FPb1kdOfvSa43D8a7j8FLDmKFCAz8EdRGdtQA&code_challenge_method=S256&tenant_uuid={TENANT_UUID}".format(TENANT_UUID=school['uuid'])
-
+base_url = "https://somtoday.nl/oauth2/authorize?redirect_uri=somtoday://nl.topicus.somtoday.leerling/oauth/callback&client_id={CLIENT_ID}&response_type=code&prompt=login&scope=openid&code_challenge=tCqjy6FPb1kdOfvSa43D8a7j8FLDmKFCAz8EdRGdtQA&code_challenge_method=S256&tenant_uuid={TENANT_UUID}".format(CLIENT_ID=client_id, TENANT_UUID=school['uuid'])
 print(f"Logging into {school['naam']} with ID: {school['uuid']}")
 
 browser = webdriver.Chrome()
@@ -43,11 +42,11 @@ while True:
 
             payload = {
                 'grant_type': 'authorization_code',
-                'redirect_uri': 'somtodayleerling://oauth/callback',
+                'redirect_uri': 'somtoday://nl.topicus.somtoday.leerling/oauth/callback',
                 'code_verifier': 't9b9-QCBB3hwdYa3UW2U2c9hhrhNzDdPww8Xp6wETWQ',
                 'code': code,
                 'scope': 'openid',
-                'client_id': 'D50E0C06-32D1-4B41-A137-A9A850C892C2'
+                'client_id': client_id
             }
 
             headers = {
